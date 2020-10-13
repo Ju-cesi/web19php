@@ -3,6 +3,7 @@ namespace src\Controller;
 
 use src\Model\Article;
 use src\Model\BDD;
+use src\Model\Categorie;
 
 class ArticleController extends AbstractController {
 
@@ -13,12 +14,18 @@ class ArticleController extends AbstractController {
             $objArticle->setDescription($_POST["Description"]);
             $objArticle->setDateAjout($_POST["DateAjout"]);
             $objArticle->setAuteur($_POST["Auteur"]);
+            $objArticle->setIdCategorie($_POST["categorie"]);
+
             //Exécuter l'insertion
             $id = $objArticle->SqlAdd(BDD::getInstance());
             // Redirection
             header("Location:/article/show/$id");
         }else{
-            return $this->twig->render("Article/add.html.twig");
+            $categorieList = new Categorie();
+            $datas = $categorieList->SqlGetAll(BDD::getInstance());
+            return $this->twig->render("Article/add.html.twig", [
+                "categorieList"=>$datas
+            ]);
         }
 
 

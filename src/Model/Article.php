@@ -9,6 +9,7 @@ class Article {
     private $Auteur;
     private $ImageRepository;
     private $ImageFileName;
+    private $Id_cat;
 
     /**
      * Cette fonction retourne les X premiers mots de la description
@@ -23,7 +24,7 @@ class Article {
 
     public function SqlAdd(\PDO $bdd){
         try {
-            $requete = $bdd->prepare("INSERT INTO articles (Titre, Description, DateAjout, Auteur, ImageRepository, ImageFilename) VALUES(:Titre, :Description, :DateAjout, :Auteur, :ImageRepository, :ImageFilename)");
+            $requete = $bdd->prepare("INSERT INTO articles (Titre, Description, DateAjout, Auteur, ImageRepository, ImageFilename, Id_cat) VALUES(:Titre, :Description, :DateAjout, :Auteur, :ImageRepository, :ImageFilename, :IdCategorie)");
 
             $requete->execute([
                 "Titre" => $this->getTitre(),
@@ -32,6 +33,7 @@ class Article {
                 "Auteur" => $this->getAuteur(),
                 "ImageRepository" => $this->getImageRepository(),
                 "ImageFilename" => $this->getImageFileName(),
+                "IdCategorie" => $this->getIdCategorie(),
             ]);
             return $bdd->lastInsertId();
         }catch (\Exception $e){
@@ -74,7 +76,7 @@ class Article {
     }
 
     public function SqlGetById(\PDO $bdd, $Id){
-        $requete = $bdd->prepare("SELECT * FROM articles WHERE Id=:Id");
+        $requete = $bdd->prepare("SELECT * FROM articles INNER JOIN categories ON articles.Id_cat = categories.Id_cat WHERE Id=:Id");
         $requete->execute([
             "Id" => $Id
         ]);
@@ -221,7 +223,23 @@ class Article {
         return $this;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getIdCategorie()
+    {
+        return $this->Id_cat;
+    }
 
+    /**
+     * @param mixed $Id_cat
+     * @return Article
+     */
+    public function setIdCategorie($IdCategorie)
+    {
+        $this->Id_cat = $IdCategorie;
+        return $this;
+    }
 
 
 

@@ -1,0 +1,15 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+    <h1>Les catégories disponibles</h1>
+    <div id="listCategorie">
+        {% for categorie in categorieList %}
+        <div>
+            <span><i class="{{ categorie.Icone }}"></i></span>
+            <h2>{{ categorie.Libelle }}</h2>
+            <p><a href="/categorie/update/{{ categorie.Id }}">Modifier cette catégorie</a></p>
+            <p><a href="/categorie/delete/{{ categorie.Id }}">Supprimer cette catégorie</a></p>
+        </div>
+        {% endfor %}
+    </div>
+{% endblock %}

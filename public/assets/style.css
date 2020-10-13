@@ -1,0 +1,12 @@
+#listCategorie {
+    display: flex;
+}
+
+#listCategorie > div {
+    text-align: center;
+    flex : auto;
+}
+
+#listCategorie span {
+    font-size : 2em;
+}
