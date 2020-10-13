@@ -21,29 +21,6 @@ class Categorie {
         }
     }
 
-    public function SqlDeleteById(\PDO $bdd, $Id){
-        $requete = $bdd->prepare("DELETE FROM categories WHERE Id_cat=:Id");
-        $requete->execute([
-                              "Id" => $Id
-                          ]);
-        return true;
-    }
-
-   /* public function SqlUpdate(\PDO $bdd){
-        try {
-            $requete = $bdd->prepare("UPDATE categories set Libelle= :Libelle, Icone = :Icone WHERE Id_cat = :Id");
-
-            $requete->execute([
-                                  "Libelle" => $this->getLibelle(),
-                                  "Icone" => $this->getIcone(),
-                                  "Id" => $this->getId(),
-                              ]);
-        }catch (\Exception $e){
-            return $e->getMessage();
-        }
-
-    }*/
-
     /**
      * Récupère toutes les catégories
      * @param \PDO $bdd
