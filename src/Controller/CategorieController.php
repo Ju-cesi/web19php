@@ -58,7 +58,7 @@ class CategorieController extends AbstractController {
             //Exécuter la mise à jour
             $objCategorie->SqlUpdate(BDD::getInstance());
             // Redirection
-            header("Location:/categorie/show/$id");
+            header("Location:/categorie/all");
         }else{
             return $this->twig->render("Categorie/update.html.twig", [
                 "categorie"=>$datas

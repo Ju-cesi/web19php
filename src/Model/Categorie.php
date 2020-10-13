@@ -44,6 +44,21 @@ class Categorie {
         return $categorie;
     }
 
+    public function SqlUpdate(\PDO $bdd){
+        try {
+            $requete = $bdd->prepare("UPDATE categories set Libelle= :Libelle, Icone = :Icone WHERE Id_cat = :Id");
+
+            $requete->execute([
+                                  "Libelle" => $this->getLibelle(),
+                                  "Icone" => $this->getIcone(),
+                                  "Id" => $this->getId(),
+                              ]);
+        }catch (\Exception $e){
+            return $e->getMessage();
+        }
+
+    }
+
     public function SqlDeleteById(\PDO $bdd, $Id){
         $requete = $bdd->prepare("DELETE FROM categories WHERE Id_cat=:Id");
         $requete->execute([
